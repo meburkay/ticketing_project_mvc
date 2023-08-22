@@ -4,6 +4,7 @@ import com.cydeo.dto.RoleDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Gender;
 import com.cydeo.service.RoleService;
+import com.cydeo.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,11 @@ public class DataGenerator implements CommandLineRunner {//CommandLineRunner is 
 
 
     private final RoleService roleService; //We are using interface for abstraction.
+    private final UserService userService;
 
-    public DataGenerator(RoleService roleService) {
+    public DataGenerator(RoleService roleService, UserService userService) {
         this.roleService = roleService;
+        this.userService = userService;
     }
 
     @Override
@@ -48,6 +51,14 @@ public class DataGenerator implements CommandLineRunner {//CommandLineRunner is 
                 "Matt", "bill@cydeo.com", "Abc4", true, "8881239846", employeeRole, Gender.MALE);
 
 
+        userService.save(user1);
+        userService.save(user2);
+        userService.save(user3);
+        userService.save(user4);
+        userService.save(user5);
+        userService.save(user6);
+        userService.save(user7);
+        userService.save(user8);
 
 
 
