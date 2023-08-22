@@ -98,8 +98,9 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
-                                                    <select name="role" class="custom-select">
-                                                        <option></option>
+                                                    <select th:field="*{role}" name="role" class="custom-select"> <!--We bind the role variable of the class -->
+                                                        <option th:value="''" th:text="Select"></option> <!--We create a Select option to see before we push the dropdown button -->
+                                                        <option th:each="role : ${roles}"></option> <!--We make a loop to show all the roles at the dropdown button. -->
                                                     </select>
                                                 </div>
                                             </div>

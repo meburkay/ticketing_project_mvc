@@ -14,6 +14,9 @@ public class UserController {
     public String createUser(Model model){
 
         model.addAttribute("user",new UserDTO());
+
+        model.addAttribute("roles","find all roles from db"); //We must take all the roles from DB and give them to view for the dropdown button.
+
         return "/user/create";
     }
 }
