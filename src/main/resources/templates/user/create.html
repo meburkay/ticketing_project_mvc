@@ -157,7 +157,7 @@
                                             <tr th:each="user: ${users}">
                                                 <td th:text="${user.firstName + ' ' + user.lastName}"></td>
                                                 <td th:text="${user.userName}"></td>
-                                                <td th:text="${user.gender.value}"></td>
+                                                <td th:text="${user.gender.value}"></td> <!--We create at the gender class value for male and female here we use it.  -->
                                                 <td th:text="${user.phone}"></td>
                                                 <td th:text="${user.role.description}"></td>
 
