@@ -100,7 +100,7 @@
                                                     <label>Choose a Role</label>
                                                     <select th:field="*{role}" name="role" class="custom-select"> <!--We bind the role variable of the class -->
                                                         <option th:value="''" th:text="Select"></option> <!--We create a Select option to see before we push the dropdown button -->
-                                                        <option th:each="role : ${roles}"></option> <!--We make a loop to show all the roles at the dropdown button. -->
+                                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.description}"> </option> <!--We make a loop to show all the roles at the dropdown button. -->
                                                     </select>
                                                 </div>
                                             </div>
