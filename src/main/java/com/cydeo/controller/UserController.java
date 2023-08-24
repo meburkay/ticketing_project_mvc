@@ -6,6 +6,8 @@ import com.cydeo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -30,5 +32,21 @@ public class UserController {
         model.addAttribute("users", userService.findAll());
 
         return "/user/create";
+    }
+
+    //We create this class for the submit button. When we click submit button this method will execute. Because it will send data from the form it is a @PostMapping method. And to take the data from form we use @ModelAttribute.
+    @PostMapping("/create")
+    public String insertUser(@ModelAttribute("user") UserDTO user, Model model){
+
+
+        model.addAttribute("user",new UserDTO());
+        model.addAttribute("roles",roleService.findAll());
+
+        userService.save(user);
+
+        model.addAttribute("users",userService.findAll());
+
+        return "/user/create";
+
     }
 }
