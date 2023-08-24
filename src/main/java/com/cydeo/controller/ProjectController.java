@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
@@ -25,7 +27,7 @@ public class ProjectController {
 
         model.addAttribute("project",new ProjectDTO());
 
-        model.addAttribute("managers", userService.findAll().stream().filter(manager -> manager.getRole().getDescription().equals("Manager")));
+        model.addAttribute("managers", userService.findAll().stream().filter(manager -> manager.getRole().getDescription().equals("Manager")).collect(Collectors.toList()));
 
         model.addAttribute("projects",projectService.findAll());
 
