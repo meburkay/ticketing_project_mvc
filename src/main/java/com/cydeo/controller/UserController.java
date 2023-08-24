@@ -36,17 +36,17 @@ public class UserController {
 
     //We create this class for the submit button. When we click submit button this method will execute. Because it will send data from the form it is a @PostMapping method. And to take the data from form we use @ModelAttribute.
     @PostMapping("/create")
-    public String insertUser(@ModelAttribute("user") UserDTO user, Model model){
+    public String insertUser(@ModelAttribute("user") UserDTO user){
 
 
-        model.addAttribute("user",new UserDTO());
-        model.addAttribute("roles",roleService.findAll());
+//        model.addAttribute("user",new UserDTO());
+//        model.addAttribute("roles",roleService.findAll());
 
         userService.save(user);
 
-        model.addAttribute("users",userService.findAll());
+//        model.addAttribute("users",userService.findAll());
 
-        return "/user/create";
+        return "redirect:/user/create";//By redirect, we go to end point means method. Because of that we do not need the commented parts. We do the save operation and go to user/create endpoint method. This implementations already done there.
 
     }
 }
