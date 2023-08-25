@@ -31,6 +31,12 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
 
     @Override
     public void update(ProjectDTO object) {
+
+        //When we try to update the object we do not have a place about status. Because of that it came here as null and the app crashed. Because of that we add this if statement and take the objects status from database and assign it to our ProjectDTO object to refrain from null.
+        if(object.getProjectStatus()==null){
+            object.setProjectStatus(findById(object.getProjectCode()).getProjectStatus());
+        }
+
         super.update(object.getProjectCode(),object);
     }
 
