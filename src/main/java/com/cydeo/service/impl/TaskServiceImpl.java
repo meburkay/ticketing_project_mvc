@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements TaskService {
@@ -19,6 +20,10 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
         if(task.getAssignedDate() == null){
             task.setAssignedDate(LocalDate.now());
         }
+        //When we saving the new task we have to give the id because even though we do not show it at the UI, we use at as unique field for the tasks.
+        if(task.getId()==null)
+            task.setId(UUID.randomUUID().getMostSignificantBits());
+
 
         return super.save(task.getId(),task);
     }
