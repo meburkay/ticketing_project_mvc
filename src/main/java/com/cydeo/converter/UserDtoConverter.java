@@ -16,6 +16,12 @@ public class UserDtoConverter implements Converter<String, UserDTO> {
 
     @Override
     public UserDTO convert(String source) {
+
+        //I did this for dropdown button. If the user choose select it return null and because of @Notnull validation it gives warning at the screen.
+        if (source == null || source.equals("")) {
+            return null;
+        }
+
         return userService.findById(source);
     }
 }

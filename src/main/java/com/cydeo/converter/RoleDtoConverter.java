@@ -19,6 +19,12 @@ public class RoleDtoConverter implements Converter<String, RoleDTO> {
 
     @Override
     public RoleDTO convert(String source) {
+
+        //I did this for dropdown button. If the user choose select it return null and because of @Notnull validation it gives warning at the screen.
+        if (source == null || source.equals("")) {
+            return null;
+        }
+
         return roleService.findById(Long.parseLong(source));
     }
 }

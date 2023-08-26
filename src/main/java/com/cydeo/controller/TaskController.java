@@ -7,7 +7,10 @@ import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/task")
@@ -36,8 +39,17 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String insertTask(TaskDTO task){
+    public String insertTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
 
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute("projects", projectService.findAll());
+            model.addAttribute("employees", userService.findEmployees());
+            model.addAttribute("tasks", taskService.findAll());
+
+            return "/task/create";
+
+        }
         taskService.save(task);
 
         return "redirect:/task/create";
@@ -76,13 +88,23 @@ public class TaskController {
 
     //Normally we did not use path variable at updates of other elements. But here we give the id of the task as a path variable.
     @PostMapping("/update/{id}")//As far as I understand althoudh we send a full object to the thymeleaf when we are getting back that data we only have the variables that we do operation. If we don't operate any object variable it get back as null. Because of that we especially get back the id and assign it to the task object. Because we use id to do operation to task objects.
-
     //TODO I need to look at here and analyze. Why model attribute did not used for task object instead we directly use task object. We give the objcet to view. And it used it and it update it with the components that it has but the other parts of the object became null after the operation. I do not understand there actually.
-    public String updateTask(TaskDTO task){
-//        System.out.println("task.toString() = " + task.toString());
+    public String updateTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute("projects", projectService.findAll());
+            model.addAttribute("employees", userService.findEmployees());
+            model.addAttribute("tasks", taskService.findAll());
+
+            return "/task/update";
+
+        }
+
         taskService.update(task);
 
         return "redirect:/task/create";
+
     }
 
 
@@ -113,9 +135,21 @@ public class TaskController {
 
 
     @PostMapping("/employee/update/{id}")
-    public String employeeUpdateTask(TaskDTO task) {
+    public String employeeUpdateTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute("statuses", Status.values());
+            model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
+
+            return "/task/status-update";
+
+        }
+
         taskService.updateStatus(task);
+
         return "redirect:/task/employee/pending-tasks";
+
     }
 
 }
