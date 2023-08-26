@@ -82,9 +82,12 @@ public class ProjectController {
     @GetMapping("/manager/project-status")
     public String getProjectByManager(Model model){
 
+        //We hardcoded here because we need a manager info but because we do not implement security we can not take it from login. This is temporary.
         UserDTO manager = userService.findById("john@cydeo.com");
 
-        List<ProjectDTO> projects = projectService.findAll();
+
+        //We need to get the projects which belongs to certain manager because of that we need a new service method.
+        List<ProjectDTO> projects = projectService.getCountedListOfProjectDTO(manager);
 
 
         model.addAttribute("projects",projects);
