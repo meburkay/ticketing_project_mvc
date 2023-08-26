@@ -112,4 +112,10 @@ public class TaskController {
     }
 
 
+    @PostMapping("/employee/update/{id}")
+    public String employeeUpdateTask(TaskDTO task) {
+        taskService.updateStatus(task);
+        return "redirect:/task/employee/pending-tasks";
+    }
+
 }
