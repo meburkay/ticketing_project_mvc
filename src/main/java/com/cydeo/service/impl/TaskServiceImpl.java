@@ -48,11 +48,18 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
     @Override
     public void update(TaskDTO task) {
 
-        if(task.getTaskStatus() == null)
-            task.setTaskStatus(Status.OPEN);
-        //TODO We assign LocalDate.now here. But actually this is a update method and we must not change the assigned date when we are updating the project. There is a problem here and above.
-        if(task.getAssignedDate() == null)
-            task.setAssignedDate(findById(task.getId()).getAssignedDate());
+        //We find the not updated task and fill the empty fields with it.
+        TaskDTO foundTask = findById(task.getId());
+
+        task.setTaskStatus(foundTask.getTaskStatus());
+        task.setAssignedDate(foundTask.getAssignedDate());
+
+
+//        if(task.getTaskStatus() == null)
+//            task.setTaskStatus(Status.OPEN);
+//        //TODO We assign LocalDate.now here. But actually this is a update method and we must not change the assigned date when we are updating the project. There is a problem here and above.
+//        if(task.getAssignedDate() == null)
+//            task.setAssignedDate(findById(task.getId()).getAssignedDate());
 
         super.update(task.getId(),task);
     }
