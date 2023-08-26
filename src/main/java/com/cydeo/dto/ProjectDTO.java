@@ -23,6 +23,18 @@ public class ProjectDTO {
     private String projectDetail;
     private Status projectStatus;
 
+    //We add these two fields because at manager project status page we have this fields. But at data generator we add the existing projects without this fields and project create page we use object without these fields. Because of that not to crush the app, we create a second constructor that has the other fields for data generator and project create part.
+    private int completeTaskCounts;
+    private int unfinishedTaskCounts;
 
+    public ProjectDTO(String projectName, String projectCode, UserDTO assignedManager, LocalDate startDate, LocalDate endDate, String projectDetail, Status projectStatus) {
+        this.projectName = projectName;
+        this.projectCode = projectCode;
+        this.assignedManager = assignedManager;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.projectDetail = projectDetail;
+        this.projectStatus = projectStatus;
+    }
 
 }
